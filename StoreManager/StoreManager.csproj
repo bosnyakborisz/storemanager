@@ -9,9 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="UserControls\" />
     <Folder Include="Views\" />
-    <Folder Include="Resources\" />
   </ItemGroup>
 
   <ItemGroup>
