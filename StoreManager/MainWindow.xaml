@@ -1,64 +1,88 @@
 ﻿<Window x:Class="StoreManager.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Store Manager"
-        Height="600"
-        Width="1000"
+        Title="TechHub Manager"
+        Height="700"
+        Width="1200"
         WindowStartupLocation="CenterScreen"
-        Background="#F4F6F9">
+        Background="#0F172A">
 
     <Grid>
+
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="220"/>
+            <ColumnDefinition Width="240"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- LEFT MENU -->
-        <Border Background="#1F2937">
+        <Border Grid.Column="0"
+                Background="#1E293B">
+
             <StackPanel>
 
-                <!-- Header -->
-                <TextBlock Text="STORE MANAGER"
-                           Foreground="White"
-                           FontSize="20"
-                           FontWeight="Bold"
-                           Margin="15"/>
+                <Border Margin="15"
+                        Padding="15"
+                        CornerRadius="10"
+                        Background="#38BDF8">
 
-                <Separator Background="#374151"/>
+                    <StackPanel>
+                        <TextBlock Text="Store"
+                                   FontSize="24"
+                                   FontWeight="Bold"
+                                   Foreground="White"
+                                   HorizontalAlignment="Center"/>
 
-                <!-- Menu Buttons -->
-                <Button Content="📦 Products"
-                        Height="45"
-                        Margin="10"
-                        Click="Products_Click"
-                        Background="Transparent"
-                        Foreground="White"
-                        BorderBrush="Transparent"/>
+                        <TextBlock Text="Manager"
+                                   FontSize="14"
+                                   Foreground="White"
+                                   HorizontalAlignment="Center"/>
+                    </StackPanel>
 
-                <Button Content="🧍 Customers"
-                        Height="45"
-                        Margin="10"
-                        Click="Customers_Click"
-                        Background="Transparent"
-                        Foreground="White"
-                        BorderBrush="Transparent"/>
+                </Border>
 
-                <Button Content="👤 Users"
-                        Height="45"
-                        Margin="10"
-                        Click="Users_Click"
-                        Background="Transparent"
-                        Foreground="White"
-                        BorderBrush="Transparent"/>
+                <Separator Margin="10"/>
+
+
+                <Button Content="🖥 Products"
+                    Click="Products_Click"
+                    Style="{StaticResource MenuButtonStyle}"/>
+
+                            <Button Content="👥 Customers"
+                    Click="Customers_Click"
+                    Style="{StaticResource MenuButtonStyle}"/>
+
+                            <Button Content="🔐 Users"
+                    Click="Users_Click"
+                    Style="{StaticResource MenuButtonStyle}"/>
 
             </StackPanel>
+
         </Border>
 
-        <!-- RIGHT CONTENT -->
         <Grid Grid.Column="1">
 
-            <StackPanel x:Name="MainContent"/>
+            <Border Background="#0F172A"
+                    Padding="20">
+
+                <StackPanel>
+
+                    <TextBlock Text="Store Manager"
+                               FontSize="30"
+                               FontWeight="Bold"
+                               Foreground="White"/>
+
+                    <TextBlock Text="Hardverbolt-kezelő rendszer"
+                               FontSize="14"
+                               Foreground="#94A3B8"
+                               Margin="0,0,0,20"/>
+
+                    <ContentControl x:Name="MainContent"/>
+
+                </StackPanel>
+
+            </Border>
 
         </Grid>
+
     </Grid>
+
 </Window>
