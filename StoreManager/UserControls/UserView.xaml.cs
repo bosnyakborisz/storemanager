@@ -1,4 +1,5 @@
 ﻿using StoreManager.Models;
+using StoreManager.Services;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -7,17 +8,19 @@ namespace StoreManager.UserControls
 {
     public partial class UserView : UserControl
     {
-        private GenericRepository<User> repository;
-        private User selectedUser;
+        User selectedUser;
 
         public UserView()
         {
             InitializeComponent();
 
-            repository = new GenericRepository<User>(App.databasePath);
+            cbRole.ItemsSource = Enum.GetNames(typeof(Roles));
+
             ReadDatabase();
 
-
+            btnAdd.Visibility = Visibility.Visible;
+            btnUpdate.Visibility = Visibility.Hidden;
+            btnDelete.Visibility = Visibility.Hidden;
         }
 
         private void ReadDatabase()
@@ -26,123 +29,109 @@ namespace StoreManager.UserControls
             tbEmail.Text = "";
             tbFirstName.Text = "";
             tbLastName.Text = "";
-            tbRole.Text = "";
+            pbPassword.Password = "";
 
-            var userRepository = new GenericRepository<User>(App.databasePath);
+            cbRole.SelectedItem =
+                Enum.GetName(typeof(Roles), Roles.Admin);
+
+            var userRepository =
+                new GenericRepository<User>(App.databasePath);
 
             dgUsers.ItemsSource = userRepository.GetAll();
 
             btnAdd.Visibility = Visibility.Visible;
             btnUpdate.Visibility = Visibility.Hidden;
             btnDelete.Visibility = Visibility.Hidden;
-
-            selectedUser = null;
-        }
-
-        private void btnAdd_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                User user = new User
-                {
-                    Username = tbUsername.Text,
-                    Email = tbEmail.Text,
-                    FirstName = tbFirstName.Text,
-                    LastName = tbLastName.Text,
-                    Role = tbRole.Text,
-
-                    PasswordHash = "123456",
-                    IsActive = true,
-                    CreatedAt = DateTime.Now
-                };
-
-                repository.insert(user);
-
-                ClearFields();
-                LoadUsers();
-
-                MessageBox.Show("User added successfully!");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void btnUpdate_Click(object sender, RoutedEventArgs e)
-        {
-            if (selectedUser == null)
-            {
-                MessageBox.Show("Select a user first!");
-                return;
-            }
-
-            try
-            {
-                selectedUser.Username = tbUsername.Text;
-                selectedUser.Email = tbEmail.Text;
-                selectedUser.FirstName = tbFirstName.Text;
-                selectedUser.LastName = tbLastName.Text;
-                selectedUser.Role = tbRole.Text;
-
-                repository.update(selectedUser);
-
-                LoadUsers();
-
-                MessageBox.Show("User updated!");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void btnDelete_Click(object sender, RoutedEventArgs e)
-        {
-            if (selectedUser == null)
-            {
-                MessageBox.Show("Select a user first!");
-                return;
-            }
-
-            try
-            {
-                repository.delete(selectedUser);
-
-                ClearFields();
-                LoadUsers();
-
-                MessageBox.Show("User deleted!");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
         }
 
         private void dgUsers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (dgUsers.SelectedItem == null)
-                return;
+            btnAdd.Visibility = Visibility.Hidden;
+            btnUpdate.Visibility = Visibility.Visible;
+            btnDelete.Visibility = Visibility.Visible;
 
-            selectedUser = (User)dgUsers.SelectedItem;
+            if (dgUsers.SelectedItem != null)
+            {
+                selectedUser = (User)dgUsers.SelectedItem;
 
-            tbUsername.Text = selectedUser.Username;
-            tbEmail.Text = selectedUser.Email;
-            tbFirstName.Text = selectedUser.FirstName;
-            tbLastName.Text = selectedUser.LastName;
-            tbRole.Text = selectedUser.Role;
+                tbUsername.Text = selectedUser.Username;
+                tbEmail.Text = selectedUser.Email;
+                tbFirstName.Text = selectedUser.FirstName;
+                tbLastName.Text = selectedUser.LastName;
+
+                cbRole.Text = selectedUser.RoleName;
+
+                pbPassword.Password = "";
+            }
         }
 
-        private void ClearFields()
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            tbUsername.Clear();
-            tbEmail.Clear();
-            tbFirstName.Clear();
-            tbLastName.Clear();
-            tbRole.Clear();
+            string roleName = (string)cbRole.SelectedItem;
 
-            selectedUser = null;
+            Roles role =
+                (Roles)Enum.Parse(typeof(Roles), roleName);
+
+            User newUser = new User
+            {
+                Username = tbUsername.Text,
+                Email = tbEmail.Text,
+                FirstName = tbFirstName.Text,
+                LastName = tbLastName.Text,
+
+                PasswordHash =
+                    PasswordHelper.HashPassword(pbPassword.Password),
+
+                Role = (int)role,
+
+                IsActive = true,
+                CreatedAt = DateTime.Now
+            };
+
+            var userRepository =
+                new GenericRepository<User>(App.databasePath);
+
+            userRepository.insert(newUser);
+
+            ReadDatabase();
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            var userRepository =
+                new GenericRepository<User>(App.databasePath);
+
+            userRepository.delete(selectedUser);
+
+            ReadDatabase();
+        }
+
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+            selectedUser.Username = tbUsername.Text;
+            selectedUser.Email = tbEmail.Text;
+            selectedUser.FirstName = tbFirstName.Text;
+            selectedUser.LastName = tbLastName.Text;
+
+            string roleName = (string)cbRole.SelectedItem;
+
+            Roles role =
+                (Roles)Enum.Parse(typeof(Roles), roleName);
+
+            selectedUser.Role = (int)role;
+
+            if (pbPassword.Password != "")
+            {
+                selectedUser.PasswordHash =
+                    PasswordHelper.HashPassword(pbPassword.Password);
+            }
+
+            var userRepository =
+                new GenericRepository<User>(App.databasePath);
+
+            userRepository.update(selectedUser);
+
+            ReadDatabase();
         }
     }
 }

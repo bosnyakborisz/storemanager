@@ -46,13 +46,20 @@
                     Click="Products_Click"
                     Style="{StaticResource MenuButtonStyle}"/>
 
-                            <Button Content="👥 Customers"
+                <Button Content="👥 Customers"
                     Click="Customers_Click"
                     Style="{StaticResource MenuButtonStyle}"/>
 
-                            <Button Content="🔐 Users"
+                <Button Content="🔐 Users"
                     Click="Users_Click"
                     Style="{StaticResource MenuButtonStyle}"/>
+
+                <Separator Margin="10,20,10,10"/>
+
+                <Button Content="❌ Exit"
+                        x:Name="btnExit"  
+                        Click="btnExit_Click"
+                        Style="{StaticResource MenuButtonStyle}"/>
 
             </StackPanel>
 
@@ -73,9 +80,9 @@
                     <TextBlock Text="Hardverbolt-kezelő rendszer"
                                FontSize="14"
                                Foreground="#94A3B8"
-                               Margin="0,0,0,20"/>
-
-                    <ContentControl x:Name="MainContent"/>
+                               Margin="0,0,0,20"/> 
+                    <!--ContentControl-->
+                    <StackPanel x:Name="MainContent"/>
 
                 </StackPanel>
 
