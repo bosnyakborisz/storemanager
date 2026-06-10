@@ -1,0 +1,117 @@
+﻿<Window x:Class="StoreManager.Views.UserLogin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="TechHub Login"
+        Height="500"
+        Width="900"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="#0F172A">
+
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+
+
+        <Border Grid.Column="0"
+                Margin="30"
+                Background="#1E293B"
+                CornerRadius="20"
+                Padding="40">
+
+            <StackPanel VerticalAlignment="Center">
+
+                <TextBlock Text="TECHHUB MANAGER"
+                           FontSize="32"
+                           FontWeight="Bold"
+                           Foreground="White"/>
+
+                <TextBlock Text="Login to your account"
+                           FontSize="16"
+                           Foreground="#94A3B8"
+                           Margin="0,5,0,30"/>
+
+                <TextBlock Text="Username"
+                           Foreground="White"
+                           FontWeight="SemiBold"/>
+
+                <TextBox x:Name="loginUserText"
+                         Height="40"
+                         Margin="0,8,0,15"
+                         FontSize="14"
+                         Padding="10"/>
+
+                <TextBlock Text="Password"
+                           Foreground="White"
+                           FontWeight="SemiBold"/>
+
+                <PasswordBox x:Name="loginPasswordText"
+                             Height="40"
+                             Margin="0,8,0,15"
+                             Padding="10"/>
+
+                <TextBlock Text="Forgot password?"
+                           Foreground="#38BDF8"
+                           HorizontalAlignment="Right"
+                           Cursor="Hand"
+                           Margin="0,0,0,20"/>
+
+                <Button x:Name="LoginBtn"
+                        Content="🔐 Sign In"
+                        Style="{StaticResource ActionButtonStyle}"
+                        Height="45"
+                        FontSize="16"
+                        Click="LoginBtn_Click"/>
+
+            </StackPanel>
+
+        </Border>
+
+
+        <Border Grid.Column="1"
+                Margin="0,30,30,30"
+                Background="#38BDF8"
+                CornerRadius="20">
+
+            <StackPanel VerticalAlignment="Center">
+
+                <TextBlock Text="TECHHUB"
+                           FontSize="30"
+                           FontWeight="Bold"
+                           Foreground="White"
+                           HorizontalAlignment="Center"/>
+
+                <TextBlock Text="Store Management"
+                           FontSize="18"
+                           Foreground="White"
+                           HorizontalAlignment="Center"
+                           Margin="0,10,0,30"/>
+
+                <TextBlock Text="✔ Manage Products"
+                           Foreground="White"
+                           FontSize="16"
+                           Margin="30,10"/>
+
+                <TextBlock Text="✔ Manage Customers"
+                           Foreground="White"
+                           FontSize="16"
+                           Margin="30,10"/>
+
+                <TextBlock Text="✔ Manage Users"
+                           Foreground="White"
+                           FontSize="16"
+                           Margin="30,10"/>
+
+
+            </StackPanel>
+
+        </Border>
+
+    </Grid>
+
+</Window>
