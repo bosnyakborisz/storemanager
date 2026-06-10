@@ -12,6 +12,6 @@ namespace StoreManager.Models
         SalesManager,
         WarehouseManager,
         Employee,
-        Guest
+        Guest,
     }
 }

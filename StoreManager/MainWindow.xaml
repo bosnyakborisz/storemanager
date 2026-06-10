@@ -4,6 +4,7 @@
         Title="TechHub Manager"
         Height="700"
         Width="1200"
+        WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         Background="#0F172A">
 
@@ -25,7 +26,7 @@
                         Background="#38BDF8">
 
                     <StackPanel>
-                        <TextBlock Text="Store"
+                        <TextBlock Text="TechHub"
                                    FontSize="24"
                                    FontWeight="Bold"
                                    Foreground="White"
@@ -77,12 +78,12 @@
                                FontWeight="Bold"
                                Foreground="White"/>
 
-                    <TextBlock Text="Hardverbolt-kezelő rendszer"
+                    <TextBlock Text="Hardware store management system"
                                FontSize="14"
                                Foreground="#94A3B8"
-                               Margin="0,0,0,20"/> 
-                    <!--ContentControl-->
-                    <StackPanel x:Name="MainContent"/>
+                               Margin="0,0,0,20"/>
+
+                    <ContentControl x:Name="MainContent"/>
 
                 </StackPanel>
 

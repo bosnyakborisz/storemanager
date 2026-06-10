@@ -22,18 +22,20 @@ namespace StoreManager
 
         private void Products_Click(object sender, RoutedEventArgs e)
         {
-            //MainContent.Content = _productView;
-            MainContent.Children.Add(_productView);
+            MainContent.Content = _productView;
+            //MainContent.Children.Add(_productView);
         }
 
         private void Customers_Click(object sender, RoutedEventArgs e)
         {
-            MainContent.Children.Add(_customerView);
+            MainContent.Content = _customerView;
+            //MainContent.Children.Add(_customerView);
         }
 
         private void Users_Click(object sender, RoutedEventArgs e)
         {
-            MainContent.Children.Add(_userView);
+            MainContent.Content = _userView;
+            //MainContent.Children.Add(_userView);
         }
 
         private void btnExit_Click(object sender, RoutedEventArgs e)
